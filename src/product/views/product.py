@@ -24,12 +24,6 @@ class ProductListView(ListView):
                 filter_string[key] = value
         
         queryset = queryset.filter(**filter_string)
-
-        # queryset = queryset.prefetch_related(
-        #     'productvariant_set__prices',
-        #     'productvariant_set__variant'
-        # )
-
         return queryset
 
     def get_context_data(self, **kwargs):

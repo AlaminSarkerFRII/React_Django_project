@@ -16,7 +16,7 @@ class BaseVariantView(generic.View):
 class VariantView(BaseVariantView, ListView):
     template_name = 'variants/list.html'
     model = Variant
-    paginate_by = 10
+    paginate_by = 5
     context_object_name = 'variants'
 
 
@@ -36,17 +36,9 @@ class VariantView(BaseVariantView, ListView):
         queryset = queryset.filter(**filter_string)
         return queryset
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['product'] = True
-    #     context['request'] = ''
-    #     if self.request.GET:
-    #         context['request'] = self.request.GET['title__icontains']
-    #     return context
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['product'] = True
+        context['variant'] = True
         context['request'] = self.request.GET.get('title__icontains', '')
         return context
 
