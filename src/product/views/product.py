@@ -4,7 +4,7 @@ from product.models import Variant, Product
 from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView ,CreateView
 from product.forms import ProductForm 
-
+from django.core.paginator import Paginator
 
 
 
@@ -12,24 +12,31 @@ class ProductListView(ListView):
     model = Product
     template_name = 'products/list.html'
     context_object_name = 'products'
-    paginate_by = 10
+    paginate_by = 5
 
     def get_queryset(self):
-        queryset = Product.objects.all()
+        queryset = Product.objects.all().order_by('title')
         filter_string = {}
+       
         
         for key, value in self.request.GET.items():
             if value:
                 filter_string[key] = value
         
         queryset = queryset.filter(**filter_string)
+
+        # queryset = queryset.prefetch_related(
+        #     'productvariant_set__prices',
+        #     'productvariant_set__variant'
+        # )
+
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['dashboard'] = True
         context['product'] = True
         context['request'] = self.request.GET.get('title__icontains', '')
+        context['variant_options'] = Variant.objects.filter(active=True).values('id', 'title')
         return context
 
 

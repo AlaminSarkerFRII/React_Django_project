@@ -18,7 +18,7 @@ class Product(TimeStampMixin):
     description = models.TextField()
 
     def __str__(self):
-        return self.title
+        return f"{self.title} {self.description}" 
 
 
 class ProductImage(TimeStampMixin):
@@ -51,5 +51,6 @@ class ProductVariantPrice(TimeStampMixin):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 
+
     def __str__(self):
-        return self.variant_title
+        return self.price
