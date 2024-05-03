@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView ,CreateView
 from product.forms import ProductForm 
 from django.core.paginator import Paginator
-
+from django.http import JsonResponse
 
 
 class ProductListView(ListView):
@@ -35,17 +35,6 @@ class ProductListView(ListView):
 
 
 
-# class CreateProductView(generic.TemplateView):
-#     template_name = 'products/create.html'
-
-#     def get_context_data(self, **kwargs):
-#         context = super(CreateProductView, self).get_context_data(**kwargs)
-#         variants = Variant.objects.filter(active=True).values('id', 'title')
-#         context['product'] = True
-#         context['variants'] = list(variants.all())
-#         return context
-
-
 class CreateProductView(CreateView):
     model = Product
     form_class = ProductForm
@@ -54,9 +43,19 @@ class CreateProductView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['product'] = True
-        context['variants'] = Variant.objects.filter(active=True).values('id', 'title')
+        context['variants'] = list(Variant.objects.filter(active=True).values('id', 'title'))
+        products_queryset = Product.objects.all().values()
+        for product in products_queryset:
+            product['created_at'] = product['created_at'].isoformat()
+            product['updated_at'] = product['updated_at'].isoformat()
+
+        context['products'] = list(products_queryset)
+
+        print("Variants context data:", context['variants'])
+        print("Products context data:", context['products'])
+        # return JsonResponse(context)
         return context
+
 
 
 

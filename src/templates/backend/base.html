@@ -80,7 +80,8 @@
         crossorigin="anonymous"></script>
 
 
-<script type="text/javascript" src="{% static '/js/chunk-vendors.js' %}"></script>
+{% comment %} <script type="text/javascript" src="{% static '/js/chunk-vendors.js' %}"></script> {% endcomment %}
+<script type="text/javascript" src="{% static '/js/vendor.js' %}"></script>
 <script type="text/javascript" src="{% static '/js/app.js' %}"></script>
 </body>
 </html>

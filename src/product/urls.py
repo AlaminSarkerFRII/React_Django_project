@@ -11,6 +11,6 @@ urlpatterns = [
     path('variant/<int:id>/edit', VariantEditView.as_view(), name='update.variant'),
 
     # Products URLs
-    path('create/', CreateProductView.as_view(), name='create.product'),
     path('list/', ProductListView.as_view(), name='list.product'),
+    path('create/', CreateProductView.as_view(), name='create.product'),
 ]

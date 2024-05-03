@@ -1,4 +1,6 @@
 {
     "/src/static/js/app.js": "/src/static/js/app.js",
-    "/src/static/css/main.css": "/src/static/css/main.css"
+    "/src/static/css/main.css": "/src/static/css/main.css",
+    "/src/static/js/manifest.js": "/src/static/js/manifest.js",
+    "/src/static/js/vendor.js": "/src/static/js/vendor.js"
 }

@@ -4,8 +4,8 @@
 
 {% block content %}
 
-
 <script>
+
     var varients = {{ variants|safe }}
     var products = {{ products|safe }}
 
@@ -19,17 +19,16 @@
 
     </script>
 
+
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Create Product</h1>
         <a href="{% url 'product:list.product' %}" class="float-right btn btn-primary">All Product</a>
     </div>
-    
 
     <div id="root">
 
-        <CreateProduct id="products" data-products="{{ products|safe}}" ></CreateProduct>
-
-        <CreateProduct id="varients" data-varients="{{ varients|safe }}" ></CreateProduct>
+        <CreateProduct data-variants="{{ variants|safe }}" data-products="{{ products|safe }}" ></CreateProduct>
 
         {% comment %} <CreateProduct id="products" data-variants="{{ products|safe }}"></CreateProduct> {% endcomment %}
 
