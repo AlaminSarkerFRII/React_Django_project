@@ -60,7 +60,7 @@
                         <td>
                             <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant-{{ forloop.counter }}">
                                 {% for product_variant in product.productvariant_set.all %}
-                                 <dt class="col-sm-3 pb-0">{{ product_variant.variant_title }}</dt>
+                                 <dt class="col-sm-3 pb-0 d-flex">{{ product_variant.variant_title }}</dt>
                                         <dd class="col-sm-9">
                                             <dl class="row mb-0">
                                                 {% for price in product_variant.productvariantprice_set.all %}

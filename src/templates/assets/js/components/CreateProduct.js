@@ -75,9 +75,48 @@ const CreateProduct = (props) => {
     }
 
     // Save product
-    let saveProduct = (event) => {
+    const saveProduct = async (event) => {
         event.preventDefault();
-        // TODO : write your code here to save the product
+
+        const ProductData = {
+            title, sku, description,
+            variants: productVariants.map(variant => ({
+                option : variant.option,
+                tags : variant.tags
+            })),
+
+            prices: productVariantPrice.map(price =>({
+                title : price.title,
+                price : parseFloat(price.price),
+                stock : parseFloat(price.stock)
+            }))
+        };
+
+
+        try{
+
+            const response = await axios.post('http://127.0.0.1:8000/product/create/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                },
+                body: JSON.stringify(productData),
+            });
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Product created successfully:', data);
+                navigate('/')
+            } else {
+                const errorText = await response.text();
+                console.error('Failed to create product:', errorText);
+            
+            }
+
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
+        
     }
 
 
