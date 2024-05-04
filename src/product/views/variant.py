@@ -54,3 +54,9 @@ class VariantEditView(BaseVariantView, UpdateView):
     form_class = VariantForm
     pk_url_kwarg = 'id'
     success_url = reverse_lazy('variant-list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['variant'] = True
+        context['request'] = self.request.GET.get('title__icontains', '')
+        return context

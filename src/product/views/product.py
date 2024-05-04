@@ -2,7 +2,7 @@ from django.views import generic
 from django.views.generic import ListView
 from product.models import Variant, Product
 from django.urls import reverse_lazy
-from django.views.generic.edit import UpdateView ,CreateView
+from django.views.generic.edit import UpdateView ,CreateView,FormView
 from product.forms import ProductForm 
 from django.core.paginator import Paginator
 from django.http import JsonResponse
@@ -50,10 +50,7 @@ class CreateProductView(CreateView):
             product['updated_at'] = product['updated_at'].isoformat()
 
         context['products'] = list(products_queryset)
-
-        print("Variants context data:", context['variants'])
-        print("Products context data:", context['products'])
-        # return JsonResponse(context)
+        
         return context
 
 
@@ -69,6 +66,5 @@ class UpdateProductView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['product'] = True
-        # Provide variant options for the form
         context['variants'] = Variant.objects.filter(active=True).values('id', 'title')
         return context
